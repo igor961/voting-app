@@ -1,3 +1,4 @@
 rootProject.name = 'voting-app'
 include 'server'
+include 'common'
 

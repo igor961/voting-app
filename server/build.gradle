@@ -1,12 +1,9 @@
 plugins {
-    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version "1.5.20-M1"
 }
 
-application {
-    mainClass = 'ua.com.bankvostok.App'
-}
-
-sourceCompatibility = '1.8'
+group 'votingapp'
+version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -14,14 +11,16 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-websocket:2.4.2'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.4.2'
+    //implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.4.2'
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test:2.4.2') {
+    /*testImplementation('org.springframework.boot:spring-boot-starter-test:2.4.2') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    */
+    compileOnly project(':common')
 }
 
 test {
