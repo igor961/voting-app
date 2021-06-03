@@ -6,13 +6,13 @@ class EstimateTypeChecker(maxEstimate: Int = 5, type: EstimateType = EstimateTyp
     init {
         if (maxEstimate > 100)
             throw IllegalArgumentException("maxEstimate cannot be greater than 100!")
-        estimates = BooleanArray(maxEstimate)
+        estimates = BooleanArray(maxEstimate + 1)
         when (type) {
             EstimateType.Std ->
                 estimates.fill(true);
             EstimateType.Fib ->
                 fibonacci()
-                    .take(maxEstimate)
+                    .take(maxEstimate + 1)
                     .forEach { estimates[it] = true }
         }
     }

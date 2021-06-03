@@ -1,22 +1,27 @@
-package votingapp.entity
+package votingapp.entities
 
 import votingapp.types.EstimateType
 import votingapp.types.EstimateTypeChecker
 
 class Room(val admin: User, val maxEstimate: Int, val estimateType: EstimateType) {
-    private val users: ArrayList<User> = ArrayList()
+    private val users: HashMap<String, User> = HashMap()
     val state: State
 
     val id: String
 
     init {
         id = admin.id
-        users.add(admin)
+        users[id] = admin
         state = State(EstimateTypeChecker(maxEstimate, estimateType))
     }
 
     @Synchronized
-    fun addUser(user: User) = users.add(user)
+    fun addUser(user: User) = users.set(user.id, user)
+
+    fun userById(userId: String) = users[userId]
+
+    @Synchronized
+    fun estimate(e: Int, u: User) = state.pushEstimate(e, userById(u.id)!!)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

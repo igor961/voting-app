@@ -15,7 +15,7 @@ import java.util.*
 
 @Configuration
 @EnableWebSocketMessageBroker
-open class WebSocketConfigurer : WebSocketMessageBrokerConfigurer {
+class WebSocketConfigurer : WebSocketMessageBrokerConfigurer {
     override fun configureMessageBroker(config: MessageBrokerRegistry) {
         config.enableSimpleBroker("/queue/");
         config.setApplicationDestinationPrefixes("/app");
@@ -23,12 +23,12 @@ open class WebSocketConfigurer : WebSocketMessageBrokerConfigurer {
 
     override fun registerStompEndpoints(registry: StompEndpointRegistry) {
         registry.addEndpoint("/api")
-                .setAllowedOrigins("*")
+                .setAllowedOriginPatterns("*")
                 .setHandshakeHandler(object : DefaultHandshakeHandler() {
                     override fun determineUser(request: ServerHttpRequest?,
                                                wsHandler: WebSocketHandler?,
                                                attributes: Map<String?, Any?>?) =
                             UserPrincipal(UUID.randomUUID().toString())
-                }).withSockJS()
+                })
     }
 }
